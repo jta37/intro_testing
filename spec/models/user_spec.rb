@@ -33,5 +33,24 @@ RSpec.describe User, :type => :model do
         user = User.new({email: "blah@blah.com", password: "blah", password_confirmation: "blah"})
         expect(user.save).to be(false)
   	end
+
+  	it "should validate the password length is >= 8 characters" do
+  		user = User.new({email: "bilbo@gmail.com", email_confirmation: "bilbo@gmail.com",
+  										password: "seven", password_confirmation: "seven"})
+  		expect(user.save).to be(false)
+  	end
+
+  	it "should validate the :email format to be" do
+  		user = User.new({email: "bilbo", email_confirmation: "bilbo",
+  										password: "baggins", password_confirmation: "baggins"})
+  		expect(user.save).to be(false)
+  	end
+
+  	it "should validate the :password format to contain upper and lower case letters" do
+  		user = User.new({email: "bilbo@gmail.com", email_confirmation: "bilbo@gmail.com",
+  										password: "baggins", password_confirmation: "baggins"})
+  		expect(user.save).to be(false)
+  	end
+
   end
 end
